@@ -13,7 +13,7 @@ wlan.active(True)
 saved_networks = saved_networks.saved_networks
 
 
-def do_connect(iface, ssid, key,silent=False):
+def do_connect(iface, ssid, key, silent=False):
     if not iface.isconnected():
         if not silent:
             print("")
@@ -48,20 +48,22 @@ def main(silent=False):
                     if i in ssids.keys():
                         connectable.append(i)
                 if connectable:
-                    
-                    do_connect(wlan, 
+
+                    do_connect(wlan,
                                connectable[-1],
-                               saved_networks[connectable[-1]], # -1 for the 1st network in saved_network
+                               # -1 for the 1st network in saved_network
+                               saved_networks[connectable[-1]],
                                silent)
-                    
+
             if not silent:
                 if_config = wlan.ifconfig()
-                if_config = "\n\t\t".join(["", 
-                                           "ip :"+"[44;1;97m"+if_config[0]+"[0m",
-                                          "subnet_mask :"+if_config[1], 
-                                          "gateway :"+if_config[2], 
-                                          "dns :"+if_config[3] + "\n"
-                                          ])
+                if_config = "\n\t\t".join(["",
+                                           "ip :"+"[44;1;97m" +
+                                           if_config[0]+"[0m",
+                                          "subnet_mask :"+if_config[1],
+                                           "gateway :"+if_config[2],
+                                           "dns :"+if_config[3] + "\n"
+                                           ])
 
                 print("\n\tnetwork config:", "[33m" +
                       wlan.config("essid")+"[0m", if_config)
@@ -69,7 +71,7 @@ def main(silent=False):
         except KeyboardInterrupt:
             print("\033[91mConnecting in background\033[0m")
             if wlan.isconnected():
-                wlan.disconnect() # resetting from previus unsuccessful connection
+                wlan.disconnect()  # resetting from previus unsuccessful connection
             _thread.start_new_thread(main, [True])
 
 

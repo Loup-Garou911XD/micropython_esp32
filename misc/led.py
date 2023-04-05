@@ -71,7 +71,7 @@ class Fade():
                 if self.condition:
                     self.fade()
                     time.sleep_ms(self.fade_delay)
-        _thread.exit() # dont think this is ever executed
+        _thread.exit()  # dont think this is ever executed
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         self.condition = False
@@ -79,12 +79,12 @@ class Fade():
         set(self.led, 0)
 
     def fade(self):
-        for i in range(1024):  
+        for i in range(20):
             if not self.condition:
                 _thread.exit()
-            self.pwm_led.duty(i) #int(math.sin(i / 10 * math.pi) * 500 + 500)
-            time.sleep_ms(1)
-            
+            self.pwm_led.duty(int(math.sin(i / 10 * math.pi) * 500 + 500))
+            time.sleep_ms(50)
+
 
 class Glow:
     def __init__(self, led=get_board_led()):
