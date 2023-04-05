@@ -16,7 +16,8 @@ saved_networks = saved_networks.saved_networks
 def do_connect(iface, ssid, key,silent=False):
     if not iface.isconnected():
         if not silent:
-            print("\n", f"connecting to {ssid}...")
+            print("")
+            print(f"connecting to {ssid}...")
         iface.connect(ssid, key)
         # while not wlan.isconnected():
         #   pass
@@ -33,7 +34,7 @@ def do_scan():
 
 
 def main(silent=False):
-    with led.BlinkLed():
+    with led.Blink():
         try:
             while not wlan.isconnected():
                 if wlan.status() == 1001:
