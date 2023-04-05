@@ -79,10 +79,10 @@ class Fade():
         set(self.led, 0)
 
     def fade(self):
-        for i in range(20):
+        for i in range(21):
             if not self.condition:
                 _thread.exit()
-            self.pwm_led.duty(int(math.sin(i / 10 * math.pi) * 500 + 500))
+            self.pwm_led.duty(1000-int(math.cos(i / 10 * math.pi) * 500 + 500)) 
             time.sleep_ms(50)
 
 
